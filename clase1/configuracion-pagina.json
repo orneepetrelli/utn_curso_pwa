@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "lang": {
+        "es":{
+            "title": "Configuracion de la pagina"
+        },
+        "en": {
+            "tittle": "Page configuration"
+        }
+    }
+}
