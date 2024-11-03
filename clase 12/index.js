@@ -7,7 +7,7 @@ import {mongoose} from "./config/mongoDB.config.js";
 const usuarioSchema = new mongoose.Schema(
     {
         nombre: {type:String, required:true},
-        emial: {type: String, required: true, unique:true},
+        email: {type: String, required: true, unique:true},
         rol: {type: String, required:true },
         password: {type: String,required: true},
         telefono:{ type: String, required:true},
@@ -18,5 +18,23 @@ const usuarioSchema = new mongoose.Schema(
 ) //llamar una clase que le pasamos dato y nos devuleve
 
 const Usuario= mongoose.model('Usuario', usuarioSchema)
+const crearUsuario = async(nombre,email,rol,password,direccion) =>{
+    try{
+        const usuario = new Usuario({
+            nombre,
+            email,
+            rol,
+            password,
+            telefono,
+            direccion}
+        )
+        const resultado = await usuario.save()
+        console.log(resultado)
+    }catch(error){
+        const customError = ERRORES[error.code]
+       console.log(customError)
+       console.log(error)
+    }
+}
 
-new Usuario('pepe','pepe@gmail.com','user','pepe123',"12344566",'av siempre viva').save()
+crearUsuario('juan','juan@gmail.com','user','pepesito1234','12345','blabla')
