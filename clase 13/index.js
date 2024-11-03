@@ -10,14 +10,19 @@ console.log(await buscarUsuarioPorId('7349613842'))//no es buena practica hacer 
 //then se ejecuta cuando la promesa se cumple (o sea la funcion retona )
 //catch se ejecuta cuando la promesa no se cumple(la fcuncion hizo un throw)
 //solo conviene .then .catch si no deben hacermultiples operaciones asincronicas, sino podemos podemos caer en la callback hell
-buscarUsuarioPorId()
-.then(
-    (retorno) => {
-        console.log(retorno)
-    }
-)
-.catch(
-    (error) => {
-        console.log('Ocurrio una excepcion', error)
-    }
-)
+//finally es metodo de promesa que se ejecuta al finalizar la promesa ideendientemente de si laaccion funciono o fallo
+// buscarUsuarioPorId()
+// .then(
+//     (retorno) => {
+//         console.log(retorno)
+//     }
+// )
+// .catch(
+//     (error) => {
+//         console.log('Ocurrio una excepcion', error)
+//     }
+// )
+// .finally(() => {
+//     console.log('proceso terminado')
+// })
+
