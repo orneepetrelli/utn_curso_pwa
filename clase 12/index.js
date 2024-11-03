@@ -1,46 +1,22 @@
 
-import filesystem from 'fs'
-import EERORES from './constants/errors.js'
+import {mongoose} from "./config/mongoDB.config.js";
 
-const crearTxt = async(nombre_archivo,texto) =>{
-    try{
-        if(!nombre_archivo){
-            throw{detail: 'No hay nombre de archivo',name: 'INVALID_ARGUMENT'}
-        }
-        if(!texto){
-            throw{detail: 'No hay texto',name: 'INVALID_ARGUMENT'}
-        }
-    await filesystem.promises.writeFile('./logs/'+ nombre_archivo+ '.txt',texto,'utf8')
-    console.dir('Archivo creado con exito!')
-    return true 
-    }catch(error){
-        const errorCustom =ERRORES[error.name] //verificar si ese error ya esta registrado 
-        if(errorCustom){
-            errorCustom.action('index.js linea 31',error.detail)
-        }
-        // console.log(errorCustom)
-        // if(error.error == 'INVALID_ARGUMENT'){
+//mongooose trae esquemas
+//mongo db no tiene esquemas
 
-        // }
-        console.log(error)
-        console.error('No se pudo guardar el archivo')
-        throw error
+const usuarioSchema = new mongoose.Schema(
+    {
+        nombre: {type:String, required:true},
+        emial: {type: String, required: true, unique:true},
+        rol: {type: String, required:true },
+        password: {type: String,required: true},
+        telefono:{ type: String, required:true},
+        direccion: {type: String, required:true},
+        fecha_registro: {type: Date, defautl: Date.now}
     }
-}
 
-const procesoX = async()=>{
-    try{//no tiene sentido ponerlo aca xq lo agarra antes ala error, el catch sirve tambein para errores de tipeo
-        await crearTxt('log-1')
-        await crearTxt('log-2','juan')
-        // console.log('accion super importante')
-    }catch(error){
-        console.error('ERROR EN EL PROCESO X')
-    }
-}
+) //llamar una clase que le pasamos dato y nos devuleve
 
-procesoX()
+const Usuario= mongoose.model('Usuario', usuarioSchema)
 
-
-// console.log(typeof (null))
-// let valor= null
-// console.log(valor.pepe)
+new Usuario('pepe','pepe@gmail.com','user','pepe123',"12344566",'av siempre viva').save()
